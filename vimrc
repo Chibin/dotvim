@@ -1,10 +1,13 @@
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-execute pathogen#infect()
+"let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+call pathogen#incubate()
+call pathogen#helptags()
+"execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
 set number
+set mouse=a
 
 function! Preserve(command)
 	" Prepartion: save last search, and cursor position.
