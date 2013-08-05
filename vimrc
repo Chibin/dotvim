@@ -7,6 +7,7 @@ syntax on
 filetype plugin indent on
 
 set number
+set hlsearch
 set mouse=a
 
 function! Preserve(command)
@@ -20,5 +21,10 @@ function! Preserve(command)
 	let @/=_s
 	call cursor(l, c)
 endfunction
+autocmd User fugitive
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
+autocmd BufReadPost fugitive://* set bufhidden=delete
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
