@@ -10,6 +10,3 @@
 [submodule "bundle/YouCompleteMe"]
 	path = bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
-[submodule "bundle/Gundo"]
-	path = bundle/Gundo
-	url = http://github.com/sjl/gundo.vim.git

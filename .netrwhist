@@ -1,8 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/Users/tanm8'
 let g:netrw_dirhist_2='/Users/tanm8/Movies'
 let g:netrw_dirhist_3='/Users/tanm8'
 let g:netrw_dirhist_4='/Users/tanm8/Desktop'
 let g:netrw_dirhist_5='/usr/local/pulse-2.5.28/versions/0205028000/lib'
 let g:netrw_dirhist_6='/Users/tanm8/TestStuff/tanm8_usxxmaguiw1m1_8131/perforce1/cdb2/Release-4_2-branch/cdb-pg/src/test/regress/output'
+let g:netrw_dirhist_7='/Users/tanm8/.vim/.git'
+let g:netrw_dirhist_8='/Users/tanm8/.vim/.git/modules'
+let g:netrw_dirhist_9='/Users/tanm8/.vim/.git/modules/bundleYouCompleteMe'
