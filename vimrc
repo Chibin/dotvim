@@ -18,6 +18,9 @@ set ts=4
 set sts=4
 set sw=4
 
+"set exceptions
+autocmd BufRead,BufNewFile *.note,todolist set nolist
+
 " Set tabstop, softtabstop and shiftwidth to the same value
 command! -nargs=* Stab call Stab()
 function! Stab()
@@ -64,3 +67,51 @@ autocmd User fugitive
 autocmd BufReadPost fugitive://* set bufhidden=delete
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
+
+vmap <C-X> "+y
+nmap <leader>b a• 
+imap <C-B> • 
+
+"Opening urls from vim
+function! Browser ()
+	let line0 = getline (".")
+	let line = matchstr (line0, "http[^ ]*")
+	:if line==""
+	let line = matchstr (line0, "ftp[^ ]*")
+	:endif
+	:if line==""
+	let line = matchstr (line0, "file[^ ]*")
+	:endif
+	" echo line
+	exec ":silent !open -a /Applications/Firefox.app ".line
+	redraw!
+endfunction
+map \w :call Browser ()<CR>
+
+"My own customization functions
+function! Date()
+	exec ':read !date "+\%m/\%d \%l:\%M \%p"'
+endfunction
+map \date :call Date ()<CR>
+
+function! TODO ()
+	:normal qaq
+	:g/TODO/y A
+	:split todo.note
+	:normal P
+	execute "normal \<c-w>J"
+endfunction
+map \TODO :call TODO ()<CR>
+
+function! Todo ()
+	:vimgrep /TODO/ %
+	:copen
+endfunction
+map \todo :call Todo ()<CR>
+au BufNewFile,BufRead *.py set expandtab
+au BufNewFile,BufRead *.note set filetype=test
+
+
+" Allow netrw to remove non-empty local directories
+"
+let g:netrw_localrmdir='rm -r'
