@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/Users/tanm8'
-let g:netrw_dirhist_2='/Users/tanm8/logs'
-let g:netrw_dirhist_3='/Users/tanm8/pulse'
-let g:netrw_dirhist_4='/Users/tanm8'
-let g:netrw_dirhist_5='/Users/tanm8/.vim'
-let g:netrw_dirhist_6='/Users/tanm8/TestStuff/tanm8_usxxmaguiw1m1_8131/perforce1/releng/private/tanm8/tools'
-let g:netrw_dirhist_7='/Users/tanm8/TestStuff/tanm8_usxxmaguiw1m1_8131/perforce1/releng/private/tanm8/tools/doxygen'
-let g:netrw_dirhist_8='/Users/tanm8/TestStuff/tanm8_usxxmaguiw1m1_8131/perforce1/releng/private/tanm8/tools'
-let g:netrw_dirhist_9='/Users/tanm8/TestStuff/tanm8_usxxmaguiw1m1_8131/perforce1/releng/private/yihj/tools'
+let g:netrw_dirhist_cnt =0

@@ -6,6 +6,7 @@ call pathogen#helptags()
 syntax on
 filetype plugin indent on
 
+set laststatus=2
 set number
 set hlsearch
 set mouse=a
@@ -17,6 +18,10 @@ set listchars=tab:▸\ ,eol:·,trail:⊔
 set ts=4
 set sts=4
 set sw=4
+
+" Persistent Undo
+set undofile
+set undodir=~/vim/undodir
 
 "set exceptions
 autocmd BufRead,BufNewFile *.note,todolist set nolist
@@ -94,6 +99,16 @@ function! Date()
 endfunction
 map \date :call Date ()<CR>
 
+
+function! JIRA()
+	let line0 = getline (".")
+	let line = matchstr(line0,"[^:, ]*-[0-9]*")
+	let jira = "http://jira.greenplum.com/browse/"
+	exec ":silent !open -a /Applications/Firefox.app ".jira.line
+	redraw!
+endfunction
+map \j :call JIRA()<CR>
+
 function! TODO ()
 	:normal qaq
 	:g/TODO/y A
@@ -108,10 +123,14 @@ function! Todo ()
 	:copen
 endfunction
 map \todo :call Todo ()<CR>
-au BufNewFile,BufRead *.py set expandtab
+au BufNewFile,BufRead *.py,*.sh,*.css,*.js,*.html set expandtab
 au BufNewFile,BufRead *.note set filetype=test
 
 
 " Allow netrw to remove non-empty local directories
 "
 let g:netrw_localrmdir='rm -r'
+
+if &diff
+	colorscheme blue
+endif
