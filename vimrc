@@ -23,6 +23,13 @@ set sw=4
 set undofile
 set undodir=~/vim/undodir
 
+" Solarized
+"
+syntax enable
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
+"
 "set exceptions
 autocmd BufRead,BufNewFile *.note,todolist set nolist
 
