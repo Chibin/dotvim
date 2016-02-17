@@ -18,6 +18,11 @@ set listchars=tab:▸\ ,eol:·,trail:⊔
 set ts=4
 set sts=4
 set sw=4
+set hidden
+set tags=/Users/mtan/github/dev/tags
+
+" ctrlp: http://ctrlpvim.github.io/ctrlp.vim/#installation
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Persistent Undo
 set undofile
@@ -133,10 +138,50 @@ map \todo :call Todo ()<CR>
 au BufNewFile,BufRead *.py,*.sh,*.css,*.js,*.html set expandtab
 au BufNewFile,BufRead *.note set filetype=test
 
+"
+" Folding functions
+"
 
+function! GoToOpenFold(direction)
+  let start = line('.')
+  if (a:direction == "next")
+    while (foldclosed(start) != -1)
+      let start = start + 1
+    endwhile
+  else
+    while (foldclosed(start) != -1)
+      let start = start - 1
+    endwhile
+  endif
+  call cursor(start, 0)
+endfunction
+nmap ]z :cal GoToOpenFold("next")
+nmap [z :cal GoToOpenFold("prev")
+
+" set ]z and [z go to find open folds
+function! GoToOpenFold(direction)
+  if (a:direction == "next")
+    normal zj
+    let start = line('.')
+    while foldclosed(start) != -1
+      let start = start + 1
+    endwhile
+  else
+    normal zk
+    let start = line('.')
+    while foldclosed(start) != -1
+      let start = start - 1
+    endwhile
+  endif
+  call cursor(start, 0)
+endfunction
+"
 " Allow netrw to remove non-empty local directories
 "
 let g:netrw_localrmdir='rm -r'
+
+" Plugin settings
+let g:NERDTreeChDirMode=2
 
 if &diff
 	colorscheme blue
