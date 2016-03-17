@@ -19,7 +19,7 @@ set ts=4
 set sts=4
 set sw=4
 set hidden
-set tags=/Users/mtan/github/dev/tags
+set tags=/Users/mtan/github/private/tags
 
 " ctrlp: http://ctrlpvim.github.io/ctrlp.vim/#installation
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -180,6 +180,8 @@ endfunction
 "
 let g:netrw_localrmdir='rm -r'
 
+let g:pymode_rope_complete_on_dot = 0
+"
 " Plugin settings
 let g:NERDTreeChDirMode=2
 
