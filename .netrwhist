@@ -1,2 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/Users/mtan/github/private/gpMgmt/bin'
+let g:netrw_dirhist_2='/Users/mtan/github/private'
+let g:netrw_dirhist_3='/Users/mtan/stash/gpdb/ace-server/gpMgmt/bin/pythonSrc/psutil-4.0.0/psutil/arch/bsd'
+let g:netrw_dirhist_4='/Users/mtan/Downloads/psutil-4.1.0'
+let g:netrw_dirhist_5='/Users/mtan/Downloads/psutil-4.1.0/psutil'
+let g:netrw_dirhist_6='/Users/mtan/Downloads/psutil-4.1.0'
+let g:netrw_dirhist_7='/Users/mtan/Downloads/psutil-4.1.0/psutil'
+let g:netrw_dirhist_8='/Users/mtan/Downloads/psutil-4.1.0'

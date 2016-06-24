@@ -1,7 +1,23 @@
 "let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 "let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-call pathogen#incubate()
-call pathogen#helptags()
+"call pathogen#incubate()
+"call pathogen#helptags()
+
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'sjl/gundo.vim'
+Plug 'godlygeek/tabular'
+Plug 'altercation/vim-colors-solarized'
+Plug 'scrooloose/nerdcommenter'
+Plug 'klen/python-mode'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Valloric/YouCompleteMe'
+Plug 'junegunn/vim-easy-align'
+Plug 'davidhalter/jedi-vim'
+call plug#end()
+"
 "execute pathogen#infect()
 syntax on
 filetype plugin indent on
@@ -27,6 +43,9 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 " Persistent Undo
 set undofile
 set undodir=~/vim/undodir
+
+" Use fuzzy logic
+set rtp+=/usr/local/opt/fzf
 
 " Solarized
 "
@@ -181,6 +200,8 @@ endfunction
 let g:netrw_localrmdir='rm -r'
 
 let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope = 0
+
 "
 " Plugin settings
 let g:NERDTreeChDirMode=2
