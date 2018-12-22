@@ -2,6 +2,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
+" Initialize plugin system
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-fugitive'
@@ -17,28 +18,33 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'majutsushi/tagbar'
 
-Plug 'rust-lang/rust.vim' "{{{2
+Plug 'rust-lang/rust.vim'
 Plug 'mattn/webapi-vim'
+call plug#end()
+
 let g:rustfmt_autosave = 1
 
-" Initialize plugin system
-call plug#end()
+syntax on
 filetype plugin indent on    " required
 
-set number
-set ts=4
-set sts=4
-set sw=4
-set expandtab
 set backspace=2
-set ruler
+set cursorline
+set expandtab
 set hidden
 set hlsearch
-
-syntax on
-
+set laststatus=2
+set list
+set listchars=tab:▸\ ,eol:·,trail:⊔
+set mouse=a
+set number
+set ruler
+set showcmd
+set sts=4
+set sw=4
+set ts=4
 set tags=../tags,tags;
 set background=dark
+
 colorscheme desert
 ""set viewdir=$HOME\.vim_view\\
 ""au BufWritePost,BufLeave,WinLeave ?* mkview " for tabs

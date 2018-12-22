@@ -1,211 +1,71 @@
-"let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-"call pathogen#incubate()
-"call pathogen#helptags()
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
+" set the runtime path to include Vundle and initialize
+" Initialize plugin system
 call plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-repeat'
-Plug 'sjl/gundo.vim'
-Plug 'godlygeek/tabular'
-Plug 'altercation/vim-colors-solarized'
-Plug 'scrooloose/nerdcommenter'
-Plug 'klen/python-mode'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'Valloric/YouCompleteMe'
-Plug 'junegunn/vim-easy-align'
-Plug 'davidhalter/jedi-vim'
-call plug#end()
+"Plug 'tpope/vim-fugitive'
 "
-"execute pathogen#infect()
-syntax on
-filetype plugin indent on
+"Plug 'vim-scripts/Gundo'
+"Plug 'w0rp/ale'
+"
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"
+"Plug 'majutsushi/tagbar'
+"
+"Plug 'mattn/webapi-vim'
+call plug#end()
 
-set laststatus=2
-set number
-set hlsearch
-set mouse=a
+
+syntax on
+filetype plugin indent on    " required
+
+set backspace=2
 set cursorline
+set expandtab
+set hidden
+set hlsearch
+set laststatus=2
+set list
+"set listchars=tab:▸\ ,eol:·,trail:⊔
+set mouse=a
+set number
 set ruler
 set showcmd
-set list
-set listchars=tab:▸\ ,eol:·,trail:⊔
-set ts=4
 set sts=4
 set sw=4
-set hidden
-set tags=/Users/mtan/github/private/tags
-
-" ctrlp: http://ctrlpvim.github.io/ctrlp.vim/#installation
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
-" Persistent Undo
-set undofile
-set undodir=~/vim/undodir
-
-" Use fuzzy logic
-set rtp+=/usr/local/opt/fzf
-
-" Solarized
-"
-syntax enable
+set ts=4
+set tags=../tags,tags;
 set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
-"
-"set exceptions
-autocmd BufRead,BufNewFile *.note,todolist set nolist
 
-" Set tabstop, softtabstop and shiftwidth to the same value
-command! -nargs=* Stab call Stab()
-function! Stab()
-        let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
-        if l:tabstop > 0
-                let &l:sts = l:tabstop
-                let &l:ts = l:tabstop
-                let &l:sw = l:tabstop
-        endif
-        call SummarizeTabs()
-endfunction
+colorscheme desert
+""set viewdir=$HOME\.vim_view\\
+""au BufWritePost,BufLeave,WinLeave ?* mkview " for tabs
+""au BufWinEnter ?* silent loadview
+set gfn=Lucida_Console:h14:cANSI
 
-function! SummarizeTabs()
-        try
-                echohl ModeMsg
-                echon 'tabstop='.&l:ts
-                echon ' shiftwidth='.&l:sw
-                echon ' softtabstop='.&l:sts
-                if &l:et
-                        echon ' expandtab'
-                else
-                        echon ' noexpandtab'
-                endif
-        finally
-                echohl None
-        endtry
-endfunction
+vmap <C-C> "+y
 
-function! Preserve(command)
-        " Prepartion: save last search, and cursor position.
-        let _s=@/
-        let l = line(".")
-        let c = col(".")
-        " Do the business:
-        execute a:command
-        " Clean up: restore previous search history, and cursor position
-        let @/=_s
-        call cursor(l, c)
-endfunction
-autocmd User fugitive
-  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-  \   nnoremap <buffer> .. :edit %:h<CR> |
-  \ endif
-autocmd BufReadPost fugitive://* set bufhidden=delete
-nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
-nmap _= :call Preserve("normal gg=G")<CR>
+au! BufRead,BufNewFile *.tex setlocal spell spelllang=en_us
 
-vmap <C-X> "+y
-nmap <leader>b a• 
-imap <C-B> • 
+let g:ale_open_list = 1
+" Set this if you want to.
+" This can be useful if you are combining ALE with
+" some other plugin which sets quickfix errors, etc.
+let g:ale_keep_list_window_open = 0
+" configure outside of vimrc
+let g:ale_pattern_options_enabled = 1
+let g:ale_lint_on_save = 1
+" use the .clang-tidy configuration file
+let g:ale_cpp_clangtidy_checks = []
+" read compile_commands.jsonn
+let g:ale_linters = {
+            \   'cpp': ['clangtidy', 'clang-format'],
+            \   'latex': ['writegood'],
+            \}
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-"Opening urls from vim
-function! Browser ()
-	let line0 = getline (".")
-	let line = matchstr (line0, "http[^ ]*")
-	:if line==""
-	let line = matchstr (line0, "ftp[^ ]*")
-	:endif
-	:if line==""
-	let line = matchstr (line0, "file[^ ]*")
-	:endif
-	" echo line
-	exec ":silent !open -a /Applications/Firefox.app ".line
-	redraw!
-endfunction
-map \w :call Browser ()<CR>
+let g:deoplete#enable_at_startup = 1
 
-"My own customization functions
-function! Date()
-	exec ':read !date "+\%m/\%d \%l:\%M \%p"'
-endfunction
-map \date :call Date ()<CR>
-
-
-function! JIRA()
-	let line0 = getline (".")
-	let line = matchstr(line0,"[^:, ]*-[0-9]*")
-	let jira = "http://jira.greenplum.com/browse/"
-	exec ":silent !open -a /Applications/Firefox.app ".jira.line
-	redraw!
-endfunction
-map \j :call JIRA()<CR>
-
-function! TODO ()
-	:normal qaq
-	:g/TODO/y A
-	:split todo.note
-	:normal P
-	execute "normal \<c-w>J"
-endfunction
-map \TODO :call TODO ()<CR>
-
-function! Todo ()
-	:vimgrep /TODO/ %
-	:copen
-endfunction
-map \todo :call Todo ()<CR>
-au BufNewFile,BufRead *.py,*.sh,*.css,*.js,*.html set expandtab
-au BufNewFile,BufRead *.note set filetype=test
-
-"
-" Folding functions
-"
-
-function! GoToOpenFold(direction)
-  let start = line('.')
-  if (a:direction == "next")
-    while (foldclosed(start) != -1)
-      let start = start + 1
-    endwhile
-  else
-    while (foldclosed(start) != -1)
-      let start = start - 1
-    endwhile
-  endif
-  call cursor(start, 0)
-endfunction
-nmap ]z :cal GoToOpenFold("next")
-nmap [z :cal GoToOpenFold("prev")
-
-" set ]z and [z go to find open folds
-function! GoToOpenFold(direction)
-  if (a:direction == "next")
-    normal zj
-    let start = line('.')
-    while foldclosed(start) != -1
-      let start = start + 1
-    endwhile
-  else
-    normal zk
-    let start = line('.')
-    while foldclosed(start) != -1
-      let start = start - 1
-    endwhile
-  endif
-  call cursor(start, 0)
-endfunction
-"
-" Allow netrw to remove non-empty local directories
-"
-let g:netrw_localrmdir='rm -r'
-
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope = 0
-
-"
-" Plugin settings
-let g:NERDTreeChDirMode=2
-
-if &diff
-	colorscheme blue
-endif
+nmap <F8> :Tagbar<CR>
