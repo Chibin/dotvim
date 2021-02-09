@@ -24,13 +24,27 @@ Plug 'klen/python-mode'
 
 Plug 'w0rp/ale'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug 'morhetz/gruvbox'
 
 Plug 'majutsushi/tagbar'
 
+Plug 'rust-lang/rust.vim'
 Plug 'mattn/webapi-vim'
 call plug#end()
 
+let g:deoplete#enable_at_startup = 1
+
+let g:rustfmt_autosave = 1
+
+syntax on
 filetype plugin indent on    " required
 
 set backspace=2
@@ -58,20 +72,12 @@ set gfn=Lucida_Console:h14:cANSI
 
 vmap <C-C> "+y
 
-
 " Persistent Undo
 set undofile
 set undodir=~/vim/undodir
 
 " Use fuzzy logic
 set rtp+=/usr/local/opt/fzf
-
-" Solarized
-"
-syntax enable
-set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
 
 au! BufRead,BufNewFile *.tex setlocal spell spelllang=en_us
 
@@ -160,3 +166,9 @@ let g:pymode_rope = 0
 " Plugin settings
 "
 let g:NERDTreeChDirMode=2
+
+nmap <C-P> :FZF<CR>
+
+colorscheme gruvbox
+set bg=dark
+set termguicolors

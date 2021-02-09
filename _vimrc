@@ -14,13 +14,24 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'powershell -executionpolicy bypass -File install.ps1',
     \ }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug 'morhetz/gruvbox'
 
 Plug 'majutsushi/tagbar'
 
 Plug 'rust-lang/rust.vim'
 Plug 'mattn/webapi-vim'
 call plug#end()
+
+let g:deoplete#enable_at_startup = 1
 
 let g:rustfmt_autosave = 1
 
@@ -93,3 +104,8 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 set completefunc=LanguageClient#complete
 
 nmap <F8> :Tagbar<CR>
+nmap <C-P> :FZF<CR>
+
+colorscheme gruvbox
+set bg=dark
+set termguicolors
