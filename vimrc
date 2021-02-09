@@ -37,6 +37,10 @@ Plug 'morhetz/gruvbox'
 Plug 'majutsushi/tagbar'
 
 Plug 'rust-lang/rust.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
 Plug 'mattn/webapi-vim'
 call plug#end()
 
@@ -77,7 +81,7 @@ set undofile
 set undodir=~/vim/undodir
 
 " Use fuzzy logic
-set rtp+=/usr/local/opt/fzf
+" set rtp+=/usr/local/opt/fzf
 
 au! BufRead,BufNewFile *.tex setlocal spell spelllang=en_us
 
