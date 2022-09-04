@@ -4,17 +4,21 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 " Initialize plugin system
 call plug#begin('~/.vim/plugged')
-
 Plug 'tpope/vim-fugitive'
 
+Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/Gundo'
+Plug 'tpope/vim-repeat'
+Plug 'godlygeek/tabular'
+Plug 'scrooloose/nerdcommenter'
+Plug 'junegunn/vim-easy-align'
 Plug 'w0rp/ale'
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'powershell -executionpolicy bypass -File install.ps1',
-    \ }
-
+"Plug 'autozimu/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'powershell -executionpolicy bypass -File install.ps1',
+"    \ }
+"
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -30,8 +34,6 @@ Plug 'majutsushi/tagbar'
 Plug 'rust-lang/rust.vim'
 Plug 'mattn/webapi-vim'
 call plug#end()
-
-let g:deoplete#enable_at_startup = 1
 
 let g:rustfmt_autosave = 1
 
@@ -56,7 +58,6 @@ set ts=4
 set tags=../tags,tags;
 set background=dark
 
-colorscheme desert
 ""set viewdir=$HOME\.vim_view\\
 ""au BufWritePost,BufLeave,WinLeave ?* mkview " for tabs
 ""au BufWinEnter ?* silent loadview
@@ -106,6 +107,11 @@ set completefunc=LanguageClient#complete
 nmap <F8> :Tagbar<CR>
 nmap <C-P> :FZF<CR>
 
-colorscheme gruvbox
+try
+    colorscheme gruvbox
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme desert
+endtry
+
 set bg=dark
 set termguicolors

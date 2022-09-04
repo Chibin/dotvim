@@ -3,7 +3,7 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 " Initialize plugin system
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 
 Plug 'tpope/vim-unimpaired'
@@ -13,17 +13,22 @@ Plug 'godlygeek/tabular'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 
 Plug 'altercation/vim-colors-solarized'
 
 Plug 'ctrlpvim/ctrlp.vim'
 
-Plug 'davidhalter/jedi-vim'
-Plug 'klen/python-mode'
+"Plug 'davidhalter/jedi-vim'
+"Plug 'klen/python-mode'
 
 Plug 'w0rp/ale'
 
+"Plug 'autozimu/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'powershell -executionpolicy bypass -File install.ps1',
+"    \ }
+"
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -43,8 +48,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 Plug 'mattn/webapi-vim'
 call plug#end()
-
-let g:deoplete#enable_at_startup = 1
 
 let g:rustfmt_autosave = 1
 
@@ -105,7 +108,6 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 let g:deoplete#enable_at_startup = 1
 
-nmap <F8> :Tagbar<CR>
 
 "
 " Folding functions
@@ -171,8 +173,14 @@ let g:pymode_rope = 0
 "
 let g:NERDTreeChDirMode=2
 
+nmap <F8> :Tagbar<CR>
 nmap <C-P> :FZF<CR>
 
-colorscheme gruvbox
+try
+    colorscheme gruvbox
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme desert
+endtry
+
 set bg=dark
 set termguicolors
