@@ -5,7 +5,7 @@ Run the following command:
 
 # Requirement
 
-    - Unix environment (debian based)
+    - Unix environment (debian or macos)
     - curl
     - python3
     - pip3
